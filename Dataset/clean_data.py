@@ -33,6 +33,7 @@ def drop_columns(artist_pd: pd.DataFrame) -> None:
     In order to narrow our dataframe to keeping data that supports our 
     research questions, we will be deleting those columns.
     '''
+<<<<<<< HEAD
     df2 = catergorized_genre(artist_pd)
     artist_pd = df2.drop(columns=["id", "isdone", "spotifyid", "genres"], axis=1)
     return artist_pd
@@ -55,3 +56,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+=======
+    artist_success_pd = artist_success_pd.drop(columns= ["id", "isdone", "spotifyid", "genres"], axis= 1)
+    return artist_success_pd
+>>>>>>> f936033e73700085694fb20f48b3b968bc0f555f
