@@ -32,5 +32,3 @@ def drop_columns(artist_success_pd: pd.DataFrame) -> None:
     '''
     artist_success_pd = artist_success_pd.drop(columns= ["id", "isdone", "spotifyid", "genres"], axis= 1)
     return artist_success_pd
-
-Hi Kristen
