@@ -15,13 +15,16 @@ def catergorized_genre(artist_success_pd: pd.DataFrame) -> None:
     Takes in our dataframe and iterates through the list of genres of each artist name
     and makes a new column with the first genre index of their list. 
     '''
-    artist_success_pd.dropna()
+    
+
     if "genres" in artist_success_pd.columns:
         artist_success_pd["updated_genre"] = artist_success_pd["genres"].str.split(",").str[0]
-
+        artist_success_pd.dropna(subset=["updated_genre"], inplace=True)
+    artist_success_pd = artist_success_pd[artist_success_pd["updated_genre"] != []]
+   
     return artist_success_pd
 
-# print(catergorized_genre(artist_success_pd))
+print(catergorized_genre(artist_success_pd))
 
 
 def drop_columns(artist_success_pd: pd.DataFrame) -> None:
@@ -32,5 +35,3 @@ def drop_columns(artist_success_pd: pd.DataFrame) -> None:
     '''
     artist_success_pd = artist_success_pd.drop(columns= ["id", "isdone", "spotifyid", "genres"], axis= 1)
     return artist_success_pd
-
-Hi Kristen
