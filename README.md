@@ -1,5 +1,5 @@
-# Artist-vs-Genre
-## CSE 163 Booming Music Industry: Popularity of Artist vs Genre on Spotify
+# Booming Music Industry: Popularity of Artist vs Genre on Spotify
+## CSE 163 Artist-vs-Genre
 As avid music listeners, it has always been a thought of how the artists we listen to came about in fame. Among the boom in the music industry over the last few decades, certain genres have risen in popularity. In correlation with the boom, demand, and popularity for these certain genres; would a music artist's success depend on it? These are intriguing questions we are trying to understand in the interest of how we have come to listen to the songs we do in correlation to the popularity of its genre. With this in mind, we decided to analyze our research question through a popular streaming platform; Spotify. Spotify, a commonly used streaming platform will provide us data in regards to our research questions. By answering these questions we are able to further understand the trends in music genres and success it would bring about for music artists.
 
 ## For our dataset:
