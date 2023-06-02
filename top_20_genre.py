@@ -82,6 +82,7 @@ percentile = popularity_percentile(df)
 genres_percentile = get_genres_in_percentile(df, percentile)
 dominant_genres = dominant_genres(df)
 
+
 print("Genres in the 20th percentile of popularity:")
 print(genres_percentile)
 print("Dominant genres:")
