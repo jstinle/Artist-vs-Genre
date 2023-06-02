@@ -4,7 +4,7 @@ Name: Kristen Do
 This file contains functions that will be utilized to answer the following
 "What is the relationship between music genre and the number of followers
 on Spotify?". This will be based off of our updated dataset,
-"artist_success.csv".
+"artist_success2.csv".
 '''
 
 import pandas as pd
