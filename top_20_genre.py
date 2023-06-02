@@ -69,8 +69,8 @@ def get_genres_in_percentile(df: pd.DataFrame,
 def dominant_genres(df: pd.DataFrame) -> list:
     """
     Takes the DataFrame containing the genre column and finds
-    the dominant genre(s) in the DataFrame by counting the occurrences
-    of each genre and returning the genre(s) with the highest count.
+    the most dominant genre in the DataFrame by counting the occurrences
+    of each genre and returning the genre with the highest count.
     """
     genre_counts = df['updated_genre'].value_counts()
     dominant_genres = genre_counts[genre_counts ==
@@ -83,7 +83,5 @@ genres_percentile = get_genres_in_percentile(df, percentile)
 dominant_genres = dominant_genres(df)
 
 
-print("Genres in the 20th percentile of popularity:")
-print(genres_percentile)
-print("Dominant genres:")
+print("Most dominant genre:")
 print(dominant_genres)
