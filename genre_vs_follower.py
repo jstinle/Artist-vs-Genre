@@ -11,7 +11,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-df = pd.read_csv("Dataset/artist_success2.csv")
+df = pd.read_csv('/Users/krxxsten/Artist-vs-Genre-1/artist_success2.csv')
 df.dropna(subset="updated_genre", inplace=True)
 
 
@@ -24,20 +24,21 @@ def filtering_genre(df: pd.DataFrame) -> None:
     in the new column as "hip hop".
     '''
     for index, row in df.iterrows():
-        if 'hip hop' in row['updated_genre']:
-            df.at[index, 'overall_genre'] = 'hip hop'
-        if 'pop' in row['updated_genre']:
-            df.at[index, 'overall_genre'] = 'pop'
-        if 'r&b' in row['updated_genre']:
-            df.at[index, 'overall_genre'] = 'r&b'
-        if 'rap' in row['updated_genre']:
-            df.at[index, 'overall_genre'] = 'rap'
-        if 'k-pop' in row['updated_genre']:
-            df.at[index, 'overall_genre'] = 'k-pop'
-        if 'edm' in row['updated_genre']:
-            df.at[index, 'overall_genre'] = 'edm'
-
-    df.dropna(subset="overall_genre", inplace=True)
+        if isinstance(row['updated_genre'], str):
+            if 'hip hop' in row['updated_genre']:
+                df.at[index, 'overall_genre'] = 'hip hop'
+            elif 'pop' in row['updated_genre']:
+                df.at[index, 'overall_genre'] = 'pop'
+            elif 'r&b' in row['updated_genre']:
+                df.at[index, 'overall_genre'] = 'r&b'
+            elif 'rap' in row['updated_genre']:
+                df.at[index, 'overall_genre'] = 'rap'
+            elif 'k-pop' in row['updated_genre']:
+                df.at[index, 'overall_genre'] = 'k-pop'
+            elif 'edm' in row['updated_genre']:
+                df.at[index, 'overall_genre'] = 'edm'
+ 
+    df.dropna(subset=['overall_genre'], inplace=True)
     return df
 
 
