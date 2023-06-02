@@ -2,7 +2,7 @@
 Name: Kristen Do, Jayden Set, and Justin Le
 
 This file tests the functions within the file
-genre_vs_follower.py, top_20_genre.py, most_popular.py. 
+genre_vs_follower.py, top_20_genre.py, most_popular.py.
 '''
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -13,11 +13,11 @@ import top_20_genre
 import most_popular
 
 
-
 df = pd.read_csv('/Users/krxxsten/Artist-vs-Genre-1/artist_success2.csv')
 train_df, test_df = train_test_split(df, test_size=0.2, random_state=42)
 train_df.to_csv('train_data.csv', index=False)
 test_df.to_csv('test_data.csv', index=False)
+
 
 def test_func_follower_genre(df: pd.DataFrame) -> None:
     '''

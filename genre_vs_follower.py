@@ -37,7 +37,7 @@ def filtering_genre(df: pd.DataFrame) -> None:
                 df.at[index, 'overall_genre'] = 'k-pop'
             elif 'edm' in row['updated_genre']:
                 df.at[index, 'overall_genre'] = 'edm'
- 
+
     df.dropna(subset=['overall_genre'], inplace=True)
     return df
 
