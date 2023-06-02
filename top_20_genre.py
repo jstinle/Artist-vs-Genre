@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 
-df = pd.read_csv("Dataset/artist_success2.csv")
+df = pd.read_csv('/Users/justinle/Documents/Artist-vs-Genre/artist_success2.csv')
 df.dropna(subset="updated_genre", inplace=True)
 
 
@@ -73,5 +73,16 @@ def dominant_genres(df: pd.DataFrame) -> list:
     of each genre and returning the genre(s) with the highest count.
     """
     genre_counts = df['updated_genre'].value_counts()
-    dominant_genres = genre_counts[genre_counts == genre_counts.max()].index.tolist()
+    dominant_genres = genre_counts[genre_counts ==
+                                   genre_counts.max()].index.tolist()
     return dominant_genres
+
+
+percentile = popularity_percentile(df)
+genres_percentile = get_genres_in_percentile(df, percentile)
+dominant_genres = dominant_genres(df)
+
+print("Genres in the 20th percentile of popularity:")
+print(genres_percentile)
+print("Dominant genres:")
+print(dominant_genres)
