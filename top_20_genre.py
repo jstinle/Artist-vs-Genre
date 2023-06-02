@@ -73,5 +73,6 @@ def dominant_genres(df: pd.DataFrame) -> list:
     of each genre and returning the genre(s) with the highest count.
     """
     genre_counts = df['updated_genre'].value_counts()
-    dominant_genres = genre_counts[genre_counts == genre_counts.max()].index.tolist()
+    dominant_genres = genre_counts[genre_counts ==
+                                   genre_counts.max()].index.tolist()
     return dominant_genres
