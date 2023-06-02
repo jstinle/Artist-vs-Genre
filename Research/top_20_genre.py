@@ -10,6 +10,7 @@ This will be based off of our updated dataset, "artist_success2.csv".
 
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 import seaborn as sns
 
 df = pd.read_csv("Dataset/artist_success2.csv")
@@ -40,3 +41,37 @@ def filtering_genre(df: pd.DataFrame) -> None:
 
     df.dropna(subset="overall_genre", inplace=True)
     return df
+
+
+def popularity_percentile(df: pd.DataFrame) -> float:
+    """
+    Takes in the DataFrame containing the column "popularity"
+    then calculating the 20th percentile of popularity among artists
+    in the given DataFrame. Returning a float represnting this percentile.
+    """
+    popularity_20th_percentile = np.percentile(df['popularity'], 20)
+    return popularity_20th_percentile
+
+
+def get_genres_in_percentile(df: pd.DataFrame,
+                             popularity_percentile: float) -> list:
+    """
+    Takes the DataFrame containing popularity and genre columns and
+    popularity_percentile, the percentile value to filter the artists.
+    Then filtering the artists whose popularity falls within the given
+    percentile and returns the unique genres of those artists as a list.
+    """
+    filtered_df = df[df['popularity'] <= popularity_percentile]
+    genres = filtered_df['updated_genre'].unique()
+    return genres
+
+
+def dominant_genres(df: pd.DataFrame) -> list:
+    """
+    Takes the DataFrame containing the genre column and finds
+    the dominant genre(s) in the DataFrame by counting the occurrences
+    of each genre and returning the genre(s) with the highest count.
+    """
+    genre_counts = df['updated_genre'].value_counts()
+    dominant_genres = genre_counts[genre_counts == genre_counts.max()].index.tolist()
+    return dominant_genres
