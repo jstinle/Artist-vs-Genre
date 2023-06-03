@@ -70,7 +70,7 @@ def test_plot_avg_followers(df: pd.DataFrame) -> None:
     plt.show()
 
 
-def test_dominant_genres_count():
+def test_dominant_genres_count(df: pd.DataFrame) -> None:
     '''
     From the top_20_genre.py file, tests the
     dominant_genres_count function using a generated
@@ -90,7 +90,7 @@ def test_dominant_genres_count():
     print("test dominant genres count passed")
 
 
-def test_dominant_genres_count():
+def test_dominant_genres_count(df: pd.DataFrame) -> None:
     '''
     From the top_20_genre.py file, tests the
     dominant_genres_count function using a generated
