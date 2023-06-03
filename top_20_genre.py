@@ -43,30 +43,7 @@ def filtering_genre(df: pd.DataFrame) -> None:
     return df
 
 
-def popularity_percentile(df: pd.DataFrame) -> float:
-    """
-    Takes in the DataFrame containing the column "popularity"
-    then calculating the 20th percentile of popularity among artists
-    in the given DataFrame. Returning a float represnting this percentile.
-    """
-    popularity_20th_percentile = np.percentile(df['popularity'], 20)
-    return popularity_20th_percentile
-
-
-def get_genres_in_percentile(df: pd.DataFrame,
-                             popularity_percentile: float) -> list:
-    """
-    Takes the DataFrame containing popularity and genre columns and
-    popularity_percentile, the percentile value to filter the artists.
-    Then filtering the artists whose popularity falls within the given
-    percentile and returns the unique genres of those artists as a list.
-    """
-    filtered_df = df[df['popularity'] <= popularity_percentile]
-    genres = filtered_df['updated_genre'].unique()
-    return genres
-
-
-def dominant_genres(df: pd.DataFrame) -> list:
+def dominant_genres_count(df: pd.DataFrame) -> list:
     """
     Takes the DataFrame containing the genre column and finds
     the most dominant genre in the DataFrame by counting the occurrences
@@ -77,14 +54,36 @@ def dominant_genres(df: pd.DataFrame) -> list:
     top_artists_df = df[df['popularity'] >= popularity_20th_percentile]
     genre_counts = top_artists_df['updated_genre'].value_counts()
     max_count = genre_counts.max()
-    dominant_genres = genre_counts[genre_counts == max_count].index.tolist()
-    return dominant_genres
+    dominant_genres_count = genre_counts[genre_counts ==
+                                         max_count].index.tolist()
+    return dominant_genres_count
 
 
-percentile = popularity_percentile(df)
-genres_percentile = get_genres_in_percentile(df, percentile)
-dominant_genres = dominant_genres(df)
+def dominant_genres_score(df: pd.DataFrame) -> list:
+    """
+    Takes the DataFrame containing the genre column and finds
+    the most dominant genre in the DataFrame by calculating the
+    average popularity score for each genre and returning the
+    genre with the highest average from the top 20 percent
+    of artists based on popularity.
+    """
+    popularity_20th_percentile = df['popularity'].quantile(0.2)
+    top_artists = df[df['popularity'] >= popularity_20th_percentile]
+    avg_popularity = top_artists.groupby('updated_genre')['popularity'].mean()
+    max_avg_popularity = avg_popularity.max()
+    dominant_genres_score = avg_popularity[avg_popularity ==
+                                           max_avg_popularity].index.tolist()
+    return dominant_genres_score
 
 
-print("Most dominant genre:")
-print(dominant_genres)
+dominant_genres_c = dominant_genres_count(df)
+dominant_genres_s = dominant_genres_score(df)
+
+
+def main():
+    print("Most dominant genre by count:", dominant_genres_c)
+    print("Most dominant genre by popularity score", dominant_genres_s)
+
+
+if __name__ == '__main__':
+    main()
