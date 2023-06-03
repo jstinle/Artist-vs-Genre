@@ -70,11 +70,73 @@ def test_plot_avg_followers(df: pd.DataFrame) -> None:
     plt.show()
 
 
+def test_dominant_genres_count():
+    '''
+    From the top_20_genre.py file, tests the
+    dominant_genres_count function using a generated
+    DataFrame of smaller data.
+    '''
+    df = pd.DataFrame({
+        'name': ['Drake', 'Adele', 'Taylor Swift',
+                 'Kendrick Lamar', 'Lady Gaga'],
+        'popularity': [98.0, 95.0, 92.0, 89.0, 85.0],
+        'followers': [61377383.0, 48193976.0, 155433752.0,
+                      17051599.0, 45418447.0],
+        'updated_genre': ['canadian hip hop', 'pop', 'pop', 'hip hop', 'pop']
+    })
+    result = top_20_genre.dominant_genres_count(df)
+    expected_output = ['pop']
+    assert result == expected_output
+    print("test dominant genres count passed")
+
+
+def test_dominant_genres_count():
+    '''
+    From the top_20_genre.py file, tests the
+    dominant_genres_count function using a generated
+    DataFrame of smaller data.
+    '''
+    df = pd.DataFrame({
+        'name': ['Drake', 'Adele', 'Taylor Swift',
+                 'Kendrick Lamar', 'Lady Gaga'],
+        'popularity': [100.0, 95.0, 92.0, 89.0, 85.0],
+        'followers': [61377383.0, 48193976.0, 155433752.0,
+                      17051599.0, 45418447.0],
+        'updated_genre': ['canadian hip hop', 'pop', 'pop', 'hip hop', 'pop']
+    })
+    result = top_20_genre.dominant_genres_count(df)
+    expected_output = ['pop']
+    assert result == expected_output
+    print("test dominant genres count passed")
+
+
+def test_dominant_genres_score():
+    '''
+    From the top_20_genre.py file, tests the
+    dominant_genres_score function using a generated
+    DataFrame of smaller data.
+    '''
+    df = pd.DataFrame({
+        'name': ['Drake', 'Adele', 'Taylor Swift',
+                 'Kendrick Lamar', 'Lady Gaga'],
+        'popularity': [100.0, 95.0, 92.0, 89.0, 85.0],
+        'followers': [61377383.0, 48193976.0, 155433752.0,
+                      17051599.0, 45418447.0],
+        'updated_genre': ['canadian hip hop', 'pop', 'pop', 'hip hop', 'pop']
+    })
+    result = top_20_genre.dominant_genres_score(df)
+    expected_output = ['canadian hip hop']
+    assert result == expected_output
+    print("test dominant genres count passed")
+
+
 def main():
     test_df = '/Users/krxxsten/Artist-vs-Genre-1/test_data.csv'
     test: pd.DataFrame = pd.read_csv(test_df)
     test_func_follower_genre(test)
     test_plot_avg_followers(test)
+    test_dominant_genres_count()
+    test_dominant_genres_score()
 
 
 if __name__ == "__main__":
