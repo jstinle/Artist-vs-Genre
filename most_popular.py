@@ -42,11 +42,24 @@ def filtering_genre(df: pd.DataFrame) -> None:
     return df
 
 
-def find_most_popular_artists(df: pd.DataFrame) -> list:
+def popular_artists(df: pd.DataFrame) -> list:
+    '''
+    Takes the dataframe and only returns genre,
+    the artist, and their popularity.
+    '''
+    df2 = filtering_genre(df)
+    max_pop = df2.groupby('overall_genre')['popularity'].transform(max)
+    most_pop = df[df['popularity'] == max_pop]
+    most_pop = most_pop[['name', 'popularity', 'overall_genre']]
+    return most_pop
+
+
+def find_most_popular_artists_plot(df: pd.DataFrame) -> list:
     '''
     Takes the dataframe containg the genre and popularity and finds the most
     popular artists. Returns only the artists that are the most
-    popular within each selected genre.
+    popular within each selected genre along with their followers and subgenre.
+    Used for the plots below.
     '''
     df2 = filtering_genre(df)
     max_popularity = df2.groupby('overall_genre')['popularity'].transform(max)
@@ -57,18 +70,17 @@ def find_most_popular_artists(df: pd.DataFrame) -> list:
 def plot_followers_popularity(df: pd.DataFrame) -> None:
     '''
     Scatter plot that represents the correlation between how much
-    followers and artist has and there popularity
+    followers an artist has and there popularity
     '''
-    # Define a colormap for genres
-    genres = most_popular_artists['overall_genre'].unique()
+    genres = most_popular_artists_plot['overall_genre'].unique()
     num_genres = len(genres)
     cmap = plt.get_cmap('tab10')
 
     plt.figure(figsize=(8, 6))
 
     for i, genre in enumerate(genres):
-        genre_data = most_popular_artists[most_popular_artists
-                                          ['overall_genre'] == genre]
+        genre_data = most_popular_artists_plot[most_popular_artists_plot
+                                               ['overall_genre'] == genre]
         plt.scatter(genre_data['popularity'], genre_data['followers'],
                     color=cmap(i % num_genres), label=genre)
 
@@ -86,8 +98,9 @@ def plot_followers_popularity(df: pd.DataFrame) -> None:
 def plot_artist_popularity_genre(df: pd.DataFrame) -> None:
     '''
     Bar chart that shows the artists and their popularity
+    along with their genres
     '''
-    most_popular_artists = find_most_popular_artists(df)
+    most_popular_artists = find_most_popular_artists_plot(df)
     plt.figure(figsize=(10, 6))
     bars = plt.bar(most_popular_artists['name'], most_popular_artists
                    ['popularity'], color='skyblue')
@@ -104,11 +117,12 @@ def plot_artist_popularity_genre(df: pd.DataFrame) -> None:
     plt.show()
 
 
-most_popular_artists = find_most_popular_artists(df)
+most_popular_artists_plot = find_most_popular_artists_plot(df)
+pop_artists = popular_artists(df)
 
 
 def main():
-    print("Most popular artists by genre:", most_popular_artists)
+    print("Most popular artists by genre:", pop_artists)
     plot_followers_popularity(df)
     plot_artist_popularity_genre(df)
 

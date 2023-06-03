@@ -110,6 +110,25 @@ def test_dominant_genres_score(df: pd.DataFrame) -> None:
     print("test dominant genres score passed")
 
 
+def test_popular_artists(df: pd.DataFrame) -> None:
+    '''
+    From the most_popular.py file, tests the
+    find_most_popular_artists function using a
+    smaller dataframe.
+    '''
+    df = pd.DataFrame({
+        'name': ['Drake', 'The Weeknd', 'Taylor Swift', 'BTS', 'Kanye West',
+                 'Juice WRLD', 'Kygo'],
+        'popularity': [98.0, 98.0, 98.0, 96.0, 95.0, 95.0, 84.0],
+        'overall_genre': ['hip hop', 'r&b', 'pop', 'k-pop', 'rap', 'rap',
+                          'edm']
+    })
+    result = most_popular.popular_artists(df)
+    expected_output = ['BTS']
+    assert result == expected_output
+    print("test popular artist passed")
+
+
 def main():
     test_df = '/Users/krxxsten/Artist-vs-Genre-1/test_data.csv'
     test: pd.DataFrame = pd.read_csv(test_df)
@@ -117,6 +136,7 @@ def main():
     test_plot_avg_followers(test)
     test_dominant_genres_count()
     test_dominant_genres_score()
+    test_popular_artists()
 
 
 if __name__ == "__main__":
