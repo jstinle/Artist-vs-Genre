@@ -9,11 +9,9 @@ This will be based off of our updated dataset, "artist_success2.csv".
 '''
 
 import pandas as pd
-import matplotlib.pyplot as plt
-import numpy as np
-import seaborn as sns
 
-df = pd.read_csv('/Users/justinle/Documents/Artist-vs-Genre/artist_success2.csv')
+file_path = '/Users/justinle/Documents/Artist-vs-Genre/artist_success2.csv'
+df = pd.read_csv(file_path)
 df.dropna(subset="updated_genre", inplace=True)
 
 
