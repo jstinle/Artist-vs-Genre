@@ -1,15 +1,16 @@
 '''
 Name: Jayden Set
 
+
 This file contains functions that will answer the question
 "Within a specific genre, which artists are the most popular on Spotify?"
 It will be based off of our updated dataset "artist_success2.csv".
 '''
 
+
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
-import seaborn as sns
+
 
 df = pd.read_csv('/Users/jset/Documents/Artist-vs-Genre/artist_success2.csv')
 df.dropna(subset="updated_genre", inplace=True)
@@ -41,43 +42,63 @@ def filtering_genre(df: pd.DataFrame) -> None:
     return df
 
 
-def find_most_popular_artists(df):
+def find_most_popular_artists(df: pd.DataFrame) -> list:
     '''
     Takes the dataframe containg the genre and popularity and finds the most
-    popular artists. Returns only the artists that are the most popular.
+    popular artists. Returns only the artists that are the most
+    popular within each selected genre.
     '''
-    # Group the DataFrame by 'overall_genre' and find the maximum 'popularity' within each group
-    max_popularity = df.groupby('overall_genre')['popularity'].max()
-    # Filter the DataFrame to include only the rows where 'popularity' matches the maximum value within each group
-    most_popular_artists = df[df['popularity'].isin(max_popularity)]
+    df2 = filtering_genre(df)
+    max_popularity = df2.groupby('overall_genre')['popularity'].transform(max)
+    most_popular_artists = df[df['popularity'] == max_popularity]
     return most_popular_artists
 
 
-def plot_most_popular_artists(df):
+def plot_followers_popularity(df: pd.DataFrame) -> None:
     '''
-    This will generate a bar plot showing the most popular artists within each genre, 
-    with the artist names on the x-axis and their popularity scores on the y-axis.
+    Scatter plot that represents the correlation between how much
+    followers and artist has and there popularity
     '''
-    # Group the DataFrame by 'overall_genre' and find the maximum 'popularity' within each group
-    max_popularity = df.groupby('overall_genre')['popularity'].max()
-     # Filter the DataFrame to include only the rows where 'popularity' matches the maximum value within each group
-    most_popular_artists = df[df['popularity'].isin(max_popularity)]
-    # Plot the most popular artists
+    plt.scatter(most_popular_artists['popularity'], most_popular_artists
+                ['followers'])
+    plt.xlabel('Popularity')
+    plt.ylabel('Follower Count')
+    plt.title('Popularity vs. Follower Count for Most Popular Artists')
+
+    for i, row in most_popular_artists.iterrows():
+        plt.text(row['popularity'], row['followers'], row['name'],
+                 fontsize=8, verticalalignment='bottom')
+
+    plt.show()
+
+
+def plot_artist_popularity_genre(df: pd.DataFrame) -> None:
+    '''
+    Bar chart that shows the artists and their popularity
+    '''
+    most_popular_artists = find_most_popular_artists(df)
     plt.figure(figsize=(10, 6))
-    plt.bar(most_popular_artists['name'], most_popular_artists['popularity'])
+    bars = plt.bar(most_popular_artists['name'], most_popular_artists
+                   ['popularity'], color='skyblue')
+    for i, bar in enumerate(bars):
+        genre = most_popular_artists.iloc[i]['overall_genre']
+        plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.5,
+                 genre, ha='center', va='bottom', fontsize=8)
     plt.xlabel('Artist')
     plt.ylabel('Popularity')
-    plt.title('Most Popular Artists in Each Genre')
-    plt.xticks(rotation=45)
+    plt.title('Artist Popularity and Genre')
+    plt.xticks(rotation=90)
     plt.show()
 
 
 most_popular_artists = find_most_popular_artists(df)
 
+
 def main():
     print("Most popular artists by genre:", most_popular_artists)
-    plot_most_popular_artists(df)
-    
+    plot_followers_popularity(df)
+    plot_artist_popularity_genre(df)
+
 
 if __name__ == '__main__':
     main()
