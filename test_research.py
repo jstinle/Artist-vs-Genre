@@ -129,6 +129,48 @@ def test_popular_artists(df: pd.DataFrame) -> None:
     print("test popular artist passed")
 
 
+def test_plot_followers_popularity(df: pd.DataFrame) -> None:
+    genres = most_popular.most_popular_artists_plot['overall_genre'].unique()
+    num_genres = len(genres)
+    cmap = plt.get_cmap('tab10')
+
+    plt.figure(figsize=(8, 6))
+
+    for i, genre in enumerate(genres):
+        genre_data = most_popular.most_popular_artists_plot
+        [most_popular.most_popular_artists_plot['overall_genre'] == genre]
+        plt.scatter(genre_data['popularity'], genre_data['followers'],
+                    color=cmap(i % num_genres), label=genre)
+
+        for j, row in genre_data.iterrows():
+            plt.text(row['popularity'], row['followers'], row['name'],
+                     fontsize=8, verticalalignment='bottom')
+
+    plt.xlabel('Popularity')
+    plt.ylabel('Follower Count')
+    plt.title('Popularity vs. Follower Count for Most Popular Artists')
+    plt.legend()
+    plt.show()
+
+
+def test_plot_artist_popularity_genre(df: pd.DataFrame) -> None:
+    most_popular_artists = most_popular.find_most_popular_artists_plot(df)
+    plt.figure(figsize=(10, 6))
+    bars = plt.bar(most_popular_artists['name'], most_popular_artists
+                   ['popularity'], color='skyblue')
+
+    for i, bar in enumerate(bars):
+        genre = most_popular_artists.iloc[i]['overall_genre']
+        plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.5,
+                 genre, ha='center', va='bottom', fontsize=8)
+
+    plt.xlabel('Artist')
+    plt.ylabel('Popularity')
+    plt.title('Artist Popularity and Genre')
+    plt.xticks(rotation=90)
+    plt.show()
+
+
 def main():
     test_df = '/Users/krxxsten/Artist-vs-Genre-1/test_data.csv'
     test: pd.DataFrame = pd.read_csv(test_df)
@@ -137,6 +179,8 @@ def main():
     test_dominant_genres_count()
     test_dominant_genres_score()
     test_popular_artists()
+    test_plot_followers_popularity(test)
+    test_plot_artist_popularity_genre(test)
 
 
 if __name__ == "__main__":
