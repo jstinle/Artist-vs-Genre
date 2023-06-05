@@ -130,6 +130,11 @@ def test_popular_artists(df: pd.DataFrame) -> None:
 
 
 def test_plot_followers_popularity(df: pd.DataFrame) -> None:
+    '''
+    From the most_popular.py file, tests the
+    plot_followers_popularity function using a
+    smaller dataframe.
+    '''
     genres = most_popular.most_popular_artists_plot['overall_genre'].unique()
     num_genres = len(genres)
     cmap = plt.get_cmap('tab10')
@@ -150,10 +155,16 @@ def test_plot_followers_popularity(df: pd.DataFrame) -> None:
     plt.ylabel('Follower Count')
     plt.title('Popularity vs. Follower Count for Most Popular Artists')
     plt.legend()
+    plt.savefig('artist_followers_popularity.png')
     plt.show()
 
 
 def test_plot_artist_popularity_genre(df: pd.DataFrame) -> None:
+    '''
+    From the most_popular.py file, tests the
+    plot_artist_popularity_genre function using a
+    smaller dataframe.
+    '''
     most_popular_artists = most_popular.find_most_popular_artists_plot(df)
     plt.figure(figsize=(10, 6))
     bars = plt.bar(most_popular_artists['name'], most_popular_artists
@@ -168,6 +179,7 @@ def test_plot_artist_popularity_genre(df: pd.DataFrame) -> None:
     plt.ylabel('Popularity')
     plt.title('Artist Popularity and Genre')
     plt.xticks(rotation=90)
+    plt.savefig('artist_popularity_genre.png')
     plt.show()
 
 

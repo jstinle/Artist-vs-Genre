@@ -93,6 +93,7 @@ def plot_followers_popularity(df: pd.DataFrame) -> None:
     plt.ylabel('Follower Count')
     plt.title('Popularity vs. Follower Count for Most Popular Artists')
     plt.legend()
+    plt.savefig('artist_followers_popularity.png')
     plt.show()
 
 
@@ -115,6 +116,7 @@ def plot_artist_popularity_genre(df: pd.DataFrame) -> None:
     plt.ylabel('Popularity')
     plt.title('Artist Popularity and Genre')
     plt.xticks(rotation=90)
+    plt.savefig('artist_popularity_genre.png')
     plt.show()
 
 
