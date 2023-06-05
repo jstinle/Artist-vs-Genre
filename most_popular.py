@@ -42,17 +42,30 @@ def filtering_genre(df: pd.DataFrame) -> None:
     return df
 
 
-def find_most_popular_artists(df):
+def popular_artists(df: pd.DataFrame) -> list:
+    '''
+    Takes the dataframe and only returns genre,
+    the artist, and their popularity.
+    '''
+    df2 = filtering_genre(df)
+    max_pop = df2.groupby('overall_genre')['popularity'].transform(max)
+    most_pop = df[df['popularity'] == max_pop]
+    most_pop = most_pop[['name', 'popularity', 'overall_genre']]
+    return most_pop
+
+
+def find_most_popular_artists_plot(df: pd.DataFrame) -> list:
     '''
     Takes the dataframe containg the genre and popularity and finds the most
     popular artists. Returns only the artists that are the most
+    popular within each selected genre.
     popular within each selected genre along with their followers and subgenre.
     Used for the plots below.
     '''
     df2 = filtering_genre(df)
     max_popularity = df2.groupby('overall_genre')['popularity'].transform(max)
-    most_popular_artists = df[df['popularity'] == max_popularity]
-    return most_popular_artists
+    most_popular_artists_plot = df[df['popularity'] == max_popularity]
+    return most_popular_artists_plot
 
 
 def plot_followers_popularity(df: pd.DataFrame) -> None:
@@ -94,7 +107,7 @@ def plot_artist_popularity_genre(df: pd.DataFrame) -> None:
                    ['popularity'], color='skyblue')
 
     for i, bar in enumerate(bars):
-        genre = most_popular_artists.iloc[i]['overall_genre']
+        genre = most_popular_artists_plot.iloc[i]['overall_genre']
         plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.5,
                  genre, ha='center', va='bottom', fontsize=8)
 
