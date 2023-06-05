@@ -41,6 +41,7 @@ def filtering_genre(df: pd.DataFrame) -> None:
     return df
 
 
+
 def find_most_popular_artists(df):
     '''
     Takes the dataframe containg the genre and popularity and finds the most
