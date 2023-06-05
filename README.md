@@ -18,3 +18,5 @@ questions. These files are "genre_vs_follower.py", "top_20_genre.py", and "most_
 - We test our functions using a smaller 80/20 sample of our dataset, in which we created a seperate duplicate csv file of "Artist_success2.csv" in order for us to be able to manipulate it. This new testing data can be found under the same testing file as "test_data.csv". 
 - Our testing file generates testing data visualizations which are saved as a png and saved directly into our directory. However, testing images we already created can be found under our "Testing" file within our directory. 
 
+## Running our files:
+In order to run desired .py files, it must be taken out of the file. Using platforms such as, VSCODE requires all files to be in within the direct directory for the code to run from one file to another. Though, even considering this, we put our work into files for organizing purposes. 
